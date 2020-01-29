@@ -1,11 +1,11 @@
-from glob import glob 
+from glob import glob
 import cv2
 import numpy as np
 from skimage.feature import hog
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from HOG_ground_dist import HOG_ground_dist
-import time 
+import time
 from pdist_emd import pdist_split
 import ray
 import itertools
@@ -21,9 +21,10 @@ def chunked_iterable(iterable, size):
 
 
 
-path_normal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/train/good'
-path_normal = '/mnt/c/Users/welschm_2/Desktop/MK/Masterarbeit/data/carpet/train/good'
-n_images = 10
+#path_normal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/train/good' #MacOS
+#path_normal = '/mnt/c/Users/welschm_2/Desktop/MK/Masterarbeit/data/carpet/train/good' #WSL
+path_normal = '/home/mk/Master/Anomaly_Detection_Py/data/carpet/train/good'
+n_images = 50
 
 imgs = []
 for i in range(n_images):
@@ -60,11 +61,11 @@ print('block_stride: ', block_stride)
 
 hog_vect = []
 for img_scaled in imgs_scaled:
-    hog_feat = hog(img_scaled, orientations = orientations, 
-                pixels_per_cell = pixels_per_cell, 
+    hog_feat = hog(img_scaled, orientations = orientations,
+                pixels_per_cell = pixels_per_cell,
                 cells_per_block = cells_per_block,multichannel=True)
     hog_vect.append(hog_feat)
-hog_mat = np.array(hog_vect)    
+hog_mat = np.array(hog_vect)
 
 print('hog_size: ', hog_mat.shape)
 
@@ -98,22 +99,22 @@ start = time.time()
 for i in range(len(x1)):
     #emd_vect[i],_,_ = cv2.EMD(x1_t[:,i],x2_t[:,i],cv2.DIST_USER, cost = ground_dist)
     emd.append(calc_emd.remote(x1_t[:,i],x2_t[:,i],ground_dist))
-    
+
     print('calculate {} of {}'.format(i+1,len(x1)))
-'''    
+'''
 end = time.time()
 b = 0
 start2 = time.time()
-for batch in chunked_iterable(range(len(x1)), size=5000):
+for batch in chunked_iterable(range(len(x1)), size=100):
     start = time.time()
     for i in batch:
-        emd.append(calc_emd.remote(x1_t[:,i],x2_t[:,i],ground_dist))    
+        emd.append(calc_emd.remote(x1_t[:,i],x2_t[:,i],ground_dist))
     end = time.time()
-    print('time elapsed {} batch {}: '.format(end-start,b+1))  
+    print('time elapsed {} batch {}: '.format(end-start,b+1))
     b += 1
     emd_vect = ray.get(emd)
 end2 = time.time()
-   
+
 print('time elapsed ray.get', end2-start2)
 print('emd: {}'.format(len(emd_vect)))
 print('len(x1)' , len(x1))
@@ -121,7 +122,7 @@ print('len(x1)' , len(x1))
 print('----------------------------------------')
 start3 = time.time()
 emd_ref = calc_emd.remote(x1_t[:,1],x2_t[:,2],ground_dist)
-emd_ref = ray.get(emd_ref)  
+emd_ref = ray.get(emd_ref)
 end3 = time.time()
 print('time: ',end3-start3)
 print('hog:', emd_ref)
