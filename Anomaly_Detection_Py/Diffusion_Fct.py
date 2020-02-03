@@ -34,7 +34,7 @@ def calc_emd(x1,x2,grounddist):
 
 def local_dist_mat(x,k,metric='euclidean',grounddist=0,iteration=0):
 # local_dist_mat: Calculates the knn - local distance matrix based on parameter k
-    BATCH_SIZE = 5000
+    BATCH_SIZE = 100
     n_samples,n_dim = x.shape
     ixx = np.linspace(0,n_samples-1,n_samples,dtype=int)
     ixx = repmat(ixx,k,1)
@@ -101,13 +101,19 @@ def weighted_graph_laplacian(dist_mat):
         i_zeros = np.where(d==0)
         d[i_zeros] = 1
     D = np.diag(1/d) # Degree Matrix
-    A = 1/n * np.matmul(np.matmul(D,dist_mat),D) # weighted Adjacency matrix
+    A_t1 = np.matmul(D,dist_mat)
+    A_t2 = np.matmul(A_t1,D)
+    print('A_t1: {}, A_t2: {}'.format(np.max(A_t1),np.max(A_t2)))
+    A = 1.0/n * np.matmul(np.matmul(D,dist_mat),D) # weighted Adjacency matrix
+    print('max_A: ', np.max(A))
     d = np.sum(A,axis=1) # sum up rows (-->)
+    print('max_d', np.max(d))
     if len(d[d==0]) > 0:
         i_zeros = np.where(d==0)
         d[i_zeros] = 1/n
+    print('D: {}, d: {}'.format(np.max(D),np.max(d)))    
     D = np.diag(d) # Degree Matrix of weighted A
-
+    
     L = D-A # Graph Laplacian
 
     return L

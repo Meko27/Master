@@ -25,7 +25,7 @@ class AnoDetector:
         L_vect = []
         ray.init() # initialize ray for parallel processing
         for i in range(self.iter):
-            print('iter: ', i)
+            print('Iter: ', i+1)
             local_dist = local_dist_mat(self.raw_data,
                                         self.k,
                                         self.metric,
@@ -36,6 +36,7 @@ class AnoDetector:
             D = np.diag(np.diag(L_vect[i]))
             A = D+0.25*L_vect[i]
             B = np.matmul(D,self.raw_data)
+            print('shape A: {}, shape B: {}'.format(A.shape,B.shape))
             self.raw_data = np.linalg.solve(A,B)
             self.data_encoded.append(self.raw_data)
 
