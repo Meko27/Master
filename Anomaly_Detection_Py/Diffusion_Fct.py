@@ -6,11 +6,11 @@ import numpy as np
 import cv2
 from scipy.spatial.distance import pdist, squareform
 from numpy.matlib import repmat
-import timeit
+import time
 from pdist_emd import pdist_split
 import ray
 import itertools
-import time
+
 
 ################################################################################
 #Auxiliary Functions

@@ -15,8 +15,8 @@ from crop import crop
 
 # Set path
 ###MacOS###
-path_normal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/train/good'
-path_anomal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/test/hole'
+#path_normal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/train/good'
+#path_anomal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/test/hole'
 #path_normal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/metal_nut/train/good'
 #path_anomal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/metal_nut/test/scratch'
 ###Windows###
@@ -28,6 +28,10 @@ path_anomal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/test/h
 ###VM###
 #path_normal = '/home/mk/Master/Anomaly_Detection_Py/data/carpet/train/good'
 #path_anomal = '/home/mk/Master/Anomaly_Detection_Py/data/carpet/test/hole'
+###24core###
+path_normal = '/home/Meko/Repos/Master/Anomaly_Detection_Py/data/carpet/train/good'
+path_anomal = '/home/Meko/Repos/Master/Anomaly_Detection_Py/data/carpet/test/hole'
+
 valid_img_type = '.png' # all images are type jpg
 img_addrs_list_normal = glob.glob(path_normal + '/*' + valid_img_type) #Windows: '\\*' , Mac, WSL: '/*
 img_addrs_list_anomal = glob.glob(path_anomal + '/*' + valid_img_type) #Windows: '\\* , Mac, WSL: '/*
@@ -40,12 +44,12 @@ hog_list = []
 
 # Params
 # Cropping images
-crop_factor = 16
+crop_factor = 8
 # Image scale
 img_scale = 1
 # HOG:
 orientations = 9
-pixels_per_cell = (32, 32)
+pixels_per_cell = (16, 16)
 cells_per_block = (2, 2)
 block_stride = tuple(int(cell_size -1) for cell_size in cells_per_block)
 # Ano detector:
@@ -60,7 +64,7 @@ for i,addr in enumerate(img_addrs_list):
     img_id_list.append(img_id) # list of img names
     img = cv2.imread(addr)
     #img = cv2.resize(img,tuple(int(img_scale * size) for size in img_size))
-    #img = cv2.resize(img,(200,200))
+    img = cv2.resize(img,(512,512))
     img_size = img.shape[:2]
     img_list.append(img)
     print('load img {} of {}'.format(i+1,len(img_addrs_list)))

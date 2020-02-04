@@ -1,7 +1,6 @@
 import numpy as np
 
 import cv2
-import timeit
 from Diffusion_Fct import local_dist_mat, weighted_graph_laplacian
 import ray
 
