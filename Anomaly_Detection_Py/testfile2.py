@@ -23,7 +23,8 @@ def chunked_iterable(iterable, size):
 
 #path_normal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/train/good' #MacOS
 #path_normal = '/mnt/c/Users/welschm_2/Desktop/MK/Masterarbeit/data/carpet/train/good' #WSL
-path_normal = '/home/mk/Master/Anomaly_Detection_Py/data/carpet/train/good'
+#path_normal = '/home/mk/Master/Anomaly_Detection_Py/data/carpet/train/good'
+path_normal = 'home/Meko/Master/Anomaly_Detection_Py/data/carpet/train/good' #24core
 n_images = 50
 
 imgs = []
