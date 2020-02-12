@@ -47,7 +47,7 @@ img_size = imgs[0].shape[:2]
 imgs_scaled = []
 
 # scale images
-img_scale = 0.3
+img_scale = 0.5
 for img in imgs:
     img_resized = cv2.resize(img,tuple(int(img_scale * size) for size in img_size))
     imgs_scaled.append(img_resized)
@@ -55,8 +55,8 @@ print('img resized to: ', imgs_scaled[0].shape)
 
 # HOG parameters:
 orientations = 9
-pixels_per_cell = (64, 64)
-cells_per_block = (4,4)
+pixels_per_cell = (32, 32)
+cells_per_block = (2,2)
 block_stride = tuple(int(cell_size -1) for cell_size in cells_per_block)
 print('block_stride: ', block_stride)
 
