@@ -24,8 +24,8 @@ def chunked_iterable(iterable, size):
 #path_normal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/train/good' #MacOS
 #path_normal = '/mnt/c/Users/welschm_2/Desktop/MK/Masterarbeit/data/carpet/train/good' #WSL
 #path_normal = '/home/mk/Master/Anomaly_Detection_Py/data/carpet/train/good'
-path_normal = '/home/Meko/Master/Anomaly_Detection_Py/data/carpet/train/good' #24core
-n_images = 50
+path_normal = '/home/Meko/Repos/Master/Anomaly_Detection_Py/data/carpet/train/good' #24core
+n_images = 4
 
 imgs = []
 for i in range(n_images):
@@ -87,7 +87,7 @@ x2_t = np.float32(np.transpose(x2))
 emd_vect = []
 
 # parallel processing
-ray.init()
+ray.init(num_cpus=4)
 
 @ray.remote
 def calc_emd(x1,x2,grounddist):
