@@ -44,12 +44,12 @@ hog_list = []
 
 # Params
 # Cropping images
-SLICENUMBER = 4
+SLICENUMBER = 2
 # Image scale
 img_scale = 1
 # HOG:
 orientations = 9
-pixels_per_cell = (32, 32)
+pixels_per_cell = (64, 64)
 cells_per_block = (2, 2)
 block_stride = tuple(int(cell_size -1) for cell_size in cells_per_block)
 # Ano detector:

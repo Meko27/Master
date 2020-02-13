@@ -34,7 +34,7 @@ def calc_emd(x1,x2,grounddist):
 
 def local_dist_mat(x,k,metric='euclidean',grounddist=0,iteration=0):
 # local_dist_mat: Calculates the knn - local distance matrix based on parameter k
-    BATCH_SIZE = 100
+    BATCH_SIZE = 500
     n_samples,n_dim = x.shape
     ixx = np.linspace(0,n_samples-1,n_samples,dtype=int)
     ixx = repmat(ixx,k,1)
