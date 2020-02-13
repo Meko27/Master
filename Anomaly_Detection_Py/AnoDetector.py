@@ -29,7 +29,8 @@ class AnoDetector:
                                         self.k,
                                         self.metric,
                                         self.grounddist,
-                                        iteration=i)                              
+                                        iteration=i)
+            print('local dist mat computed')
             L = weighted_graph_laplacian(local_dist)
             L_vect.append(L)
             D = np.diag(np.diag(L_vect[i]))
