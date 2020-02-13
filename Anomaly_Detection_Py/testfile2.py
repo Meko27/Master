@@ -55,7 +55,7 @@ print('img resized to: ', imgs_scaled[0].shape)
 
 # HOG parameters:
 orientations = 9
-pixels_per_cell = (32, 32)
+pixels_per_cell = (64, 64)
 cells_per_block = (2,2)
 block_stride = tuple(int(cell_size -1) for cell_size in cells_per_block)
 print('block_stride: ', block_stride)
