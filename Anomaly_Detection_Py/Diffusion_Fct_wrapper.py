@@ -10,6 +10,7 @@ import time
 from pdist_emd import pdist_split
 import ray
 import itertools
+import metric
 
 ################################################################################
 #Auxiliary Functions
@@ -23,9 +24,13 @@ def chunked_iterable(iterable, size):
             break
         yield chunk
 
+#@ray.remote
+#def calc_emd(x1,x2,grounddist):
+#    emd,_,_ = cv2.EMD(x1,x2,cv2.DIST_USER,cost=grounddist)
+#    return emd
 @ray.remote
-def calc_emd(x1,x2,grounddist):
-    emd,_,_ = cv2.EMD(x1,x2,cv2.DIST_USER,cost=grounddist)
+def calc_emd(x1,x2,distance):
+    emd = distance(x1,x2)
     return emd
 
 ################################################################################
@@ -40,7 +45,19 @@ def local_dist_mat(x,k,metric='euclidean',grounddist=0,iteration=0):
     maxCost = metric.EMD_details.max_in_distance_matrix(grounddist)
     distance = metric.EMD(grounddist, maxCost)
     # check which metric to be calculated
-    
+    if metric == 'img-emd':
+        x1,x2 = pdist_split(x)
+        emd = []
+        dist_vect = []
+        for no_batch,batch in enumerate(chunked_iterable(range(n_pdist),size=BATCH_SIZE)):
+            start = time.time()
+            for i in batch:
+                emd.append(calc_emd.remote(x1_t[:,i],x2_t[:,i],grounddist)) # calculate EMD's of batch
+            dist_vect = ray.get(emd)
+            end = time.time()
+            print('Now calculating batch {} of {} at iteretion {}'.format(no_batch+1 , n_pdist//BATCH_SIZE, iteration+1))
+            print('Calculation time per batch: {} (Batch size: {})'.format(end-start , BATCH_SIZE))
+
     if metric == 'emd':
         x1,x2 = pdist_split(x)
         grounddist = np.float32(grounddist)
