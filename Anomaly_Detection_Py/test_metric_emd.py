@@ -13,11 +13,13 @@ img2 = cv2.imread(path_normal + '001.png')
 img3 = cv2.imread(path_anomal+ '000.png')
 img4 = cv2.imread(path_anomal+ '001.png')
 
-IMG_SIZE = (256,256)
-img1 = cv2.resize(img1,IMG_SIZE)
-img2 = cv2.resize(img2,IMG_SIZE)
-img3 = cv2.resize(img3,IMG_SIZE)
-img4 = cv2.resize(img4,IMG_SIZE)
+img_size = img1.shape[:2]
+IMG_SCALE = 0.25
+
+img1 = cv2.resize(img1,tuple(int(IMG_SCALE * size) for size in img_size)))
+img2 = cv2.resize(img2,tuple(int(IMG_SCALE * size) for size in img_size)))
+img3 = cv2.resize(img3,tuple(int(IMG_SCALE * size) for size in img_size)))
+img4 = cv2.resize(img4,tuple(int(IMG_SCALE * size) for size in img_size)))
 
 print('calculate cost mat')
 cost_mat = metric.EMD_details.ground_distance_matrix_of_2dgrid(im_C,im_R)
