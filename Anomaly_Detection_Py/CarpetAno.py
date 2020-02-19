@@ -27,7 +27,7 @@ path_anomal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/test/h
 ###VM###
 #path_normal = '/home/mk/Master/Anomaly_Detection_Py/data/carpet/train/good'
 #path_anomal = '/home/mk/Master/Anomaly_Detection_Py/data/carpet/test/hole'
-valid_img_type = '.png' # all images are type jpg
+valid_img_type = '.png' # Set type
 img_addrs_list_normal = glob.glob(path_normal + '/*' + valid_img_type) #Windows: '\\*' , Mac, WSL: '/*
 img_addrs_list_anomal = glob.glob(path_anomal + '/*' + valid_img_type) #Windows: '\\* , Mac, WSL: '/*
 img_addrs_list = img_addrs_list_normal + img_addrs_list_anomal
