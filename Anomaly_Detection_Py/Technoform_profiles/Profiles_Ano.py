@@ -8,8 +8,8 @@ import ntpath
 from skimage.feature import hog
 import skimage
 import matplotlib.pyplot as plt
-from AnoDetector import AnoDetector
-from HOG_ground_dist import HOG_ground_dist
+from 'Home/Meko/Repos/Master/Anomaly_Detection_Py/AnoDetector.py' import AnoDetector
+from 'Home/Meko/Repos/Master/Anomaly_Detection_Py/HOG_ground_dist.py' import HOG_ground_dist
 import time
 import pandas as pd
 
@@ -29,9 +29,9 @@ k = 7
 ###########################################################
 
 ###MacOS###
-path_data = '/Users/meko/Documents/Repos/Master/Anomaly_Detection_Py/Technoform_profiles/data/Profile1'
+#path_data = '/Users/meko/Documents/Repos/Master/Anomaly_Detection_Py/Technoform_profiles/data/Profile1'
 ###24core###
-#path_data = 'Home/Meko/Repos/Master/Anomaly_Detection_Py/Technoform_profiels/data/Profile1'
+path_data = 'Home/Meko/Repos/Master/Anomaly_Detection_Py/Technoform_profiels/data/Profil_11'
 
 # Load images
 valid_img_type = 'bmp'

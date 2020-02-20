@@ -37,8 +37,8 @@ def local_dist_mat(x,k,metric='euclidean',grounddist=0,iteration=0):
     ixx = np.linspace(0,n_samples-1,n_samples,dtype=int)
     ixx = repmat(ixx,k,1)
     # Construct distance object
-    maxCost = metric.EMD_details.max_in_distance_matrix(grounddist)
-    distance = metric.EMD(grounddist, maxCost)
+    #maxCost = metric.EMD_details.max_in_distance_matrix(grounddist)
+    #distance = metric.EMD(grounddist, maxCost)
     # check which metric to be calculated
     
     if metric == 'emd':
