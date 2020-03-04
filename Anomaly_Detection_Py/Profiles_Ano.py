@@ -72,9 +72,9 @@ k = 7
 ###########################################################
 
 ###MacOS###
-path_data = '/Users/meko/Downloads/Technoform_profiles/Profil_1'
+#path_data = '/Users/meko/Downloads/Technoform_profiles/Profil_1'
 ###24core###
-#path_data = '/home/Meko/Repos/Master/Anomaly_Detection_Py/Technoform_profiles/data/Profil_2/'
+path_data = '/home/Meko/Repos/Master/Anomaly_Detection_Py/Technoform_profiles/data/Profil_1/'
 
 # Load images
 valid_img_type = 'bmp'
@@ -127,7 +127,7 @@ for i,img in enumerate(img_orig_list):
     img_re = cv2.resize(img_out,(img_width*RESIZE_FACTOR , img_heigth*RESIZE_FACTOR))
     img_list.append(img_re)
     print('load img {} of {}'.format(i+1,len(img_addrs_list)))
-    cv2.imwrite(str(i) + '.bmp',img_re)
+    #cv2.imwrite(str(i) + '.bmp',img_re)
     end=time.time()
     print('time loop 2: ', end-start)
 
