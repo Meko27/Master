@@ -74,11 +74,19 @@ k = 7
 ###MacOS###
 #path_data = '/Users/meko/Downloads/Technoform_profiles/Profil_1'
 ###24core###
-path_data = '/home/Meko/Repos/Master/Anomaly_Detection_Py/Technoform_profiles/data/Profil_1/'
+path_data = '/home/Meko/Repos/Master/Anomaly_Detection_Py/Technoform_profiles/data/'
+profil1 = 'Profil_1'
+profil2 = 'Profil_2'
+profil3 = 'Profil_3'
+profil4 = 'Profil_4'
+
 
 # Load images
 valid_img_type = 'bmp'
-img_addrs_list = glob.glob(path_data + '/*' + valid_img_type)
+img_addrs_list = glob.glob(path_data + profil1 + '/*' + valid_img_type)
+img_addrs_list.append(glob.glob(path_data + profil2 + '/*' + valid_img_type))
+img_addrs_list.append(glob.glob(path_data + profil3 + '/*' + valid_img_type))
+img_addrs_list.append(glob.glob(path_data + profil4 + '/*' + valid_img_type))
 #img_addrs_list = img_addrs_list[:20] # TODO only for testing
 img_ids = []
 img_orig_list = []
@@ -95,7 +103,7 @@ for img_count,addr in enumerate(img_addrs_list):
     start = time.time()
     # Load image
     img_id = ntpath.basename(addr)
-    img_ids.append(img_id[(len(img_id)-6):-len(valid_img_type)])
+    img_ids.append(img_id[(len(img_id)-15):-len(valid_img_type)])
     img = cv2.imread(addr)
     img_orig_list.append(img)
 
