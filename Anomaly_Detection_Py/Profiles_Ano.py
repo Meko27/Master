@@ -50,8 +50,8 @@ def detect_object(img , FILTER_LEN=800 , FILTER_WID=5):
         result = kernel * img[img_centery - FILTER_LEN//2 : img_centery + FILTER_LEN//2 , i-FILTER_WID//2 : i+FILTER_WID//2 + 1 ]
         if np.sum(result) < FILTER_WID*FILTER_LEN*200:
             pixel_pos.append(i)            
-    edge_left = pixel_pos[0] + CROP_BOUNDX - 10
-    edge_right = pixel_pos[-1] + CROP_BOUNDX + 10
+    edge_left = pixel_pos[0] 
+    edge_right = pixel_pos[-1] 
     
     return (edge_left,edge_right)
 
@@ -59,7 +59,7 @@ def detect_object(img , FILTER_LEN=800 , FILTER_WID=5):
 ###########################################################
 ### Set Parameters
 # Preprocessing
-RESIZE_FACTOR = 1
+RESIZE_FACTOR = 0.5
 # HOG
 orientations = 9
 pixels_per_cell = (64,64)
@@ -93,12 +93,11 @@ img_ids = []
 img_orig_list = []
 img_list = []
 edges = []
-width_list = []
+width_sum = 0
 # Load image and do preprocessing
-CROP_BOUNDX = 300 # precroppung to delete bounds
-CROP_BOUNDY = 300
 CLIP_LIMIT = 0.015 # between (0,1) higher value -> higher contrast
-
+ROI_Y0 = 500 # define Region of interest bounds in Y direction
+ROI_Y1 = 1500 
 # Load images and detect edges
 for img_count,addr in enumerate(img_addrs_list):
     start = time.time()
@@ -110,36 +109,37 @@ for img_count,addr in enumerate(img_addrs_list):
 
     # Preprocessing 
     img_g = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) # to gray
-    img_g = img_g[CROP_BOUNDY:-CROP_BOUNDY , CROP_BOUNDX:-CROP_BOUNDX] # crop out edges
     img_g_cont = strech_contrast(img_g) # contrast streching
 
     # Detect Object
     edges.append(detect_object(img_g_cont)) 
-    width_list.append(edges[img_count][1] - edges[img_count][0])
+    width = (edges[img_count][1] - edges[img_count][0])
+    width_sum += width
     end = time.time()
     print('time loop1: ', end-start)
 
-width_max = np.max(np.array(width_list)) # max object width
+width_mean = width_sum // len(img_orig_list) # mean of objejt width
 
 # Process and Crop images acc. to calculated edges
 for i,img in enumerate(img_orig_list):
     start = time.time()
-    img_out = img[:,edges[i][0]:edges[i][0]+width_max,:]
+    img_out = img[ROI_Y0:ROI_Y1,edges[i][0]:edges[i][1],:] # crop out object
+    img_width = img_out.shape[1]
+    img_heigth = img_out.shape[0]
 
     # Contrast Limited Adaptive Histogram Equalizaton 
     img_out = exposure.equalize_adapthist(img_out,clip_limit = CLIP_LIMIT) 
     img_out = img_as_ubyte(img_out) # equalize_adapthist converst image to float64
 
     # Resize
-    img_width = img_out.shape[1]
-    img_heigth = img_out.shape[0]
-    img_re = cv2.resize(img_out,(img_width*RESIZE_FACTOR , img_heigth*RESIZE_FACTOR))
+    img_re = cv2.resize(img_out,(int(width_mean*RESIZE_FACTOR) , int(img_heigth*RESIZE_FACTOR))) # resize to one size (widthmean)
     img_list.append(img_re)
     print('load img {} of {}'.format(i+1,len(img_addrs_list)))
     #cv2.imwrite(str(i) + '.bmp',img_re)
     end=time.time()
     print('time loop 2: ', end-start)
-
+    plt.imshow(img_re)
+    plt.show()
     
 # Calculate ground distance
 print('Calculate Ground Distane Matrix')
@@ -176,7 +176,7 @@ Profil1_evaluation = {'Id': ids_outliers, 'Distance': dist_vect_ano}
 Profil1_evaluation = pd.DataFrame(data=Profil1_evaluation)
 print('Eval ', Profil1_evaluation)
 
-print('img_size: {}, HOG_size: {}'.format(IMG_SIZE,features.shape))
+print('img_size: {}, HOG_size: {}'.format(img_list[0].shape,features.shape))
 print('dist: \n', dist_vect_ano)
 print('idx_outl: \n', idx_outliers)
 print('time elapsed: ', end-start)
