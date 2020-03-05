@@ -71,10 +71,10 @@ n_outliers = 10
 k = 7
 ###########################################################
 
-###MacOS###
+###MacOS###/
 #path_data = '/Users/meko/Downloads/Technoform_profiles/Profil_1'
 ###24core###
-path_data = '/home/Meko/Repos/Master/Anomaly_Detection_Py/Technoform_profiles/data/'
+path_data = '/home/Meko/Repos/data/Technoform_data/'
 profil1 = 'Profil_1'
 profil2 = 'Profil_2'
 profil3 = 'Profil_3'
