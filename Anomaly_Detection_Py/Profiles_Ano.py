@@ -72,9 +72,9 @@ k = 7
 ###########################################################
 
 ###MacOS###/
-path_data = '/Users/meko/Downloads/Technoform_profiles/'
+#path_data = '/Users/meko/Downloads/Technoform_profiles/'
 ###24core###
-#path_data = '/home/Meko/Repos/data/Technoform_data/'
+path_data = '/home/Meko/Repos/data/Technoform_data/'
 profil1 = 'Profil_1'
 profil2 = 'Profil_2'
 profil3 = 'Profil_3'
