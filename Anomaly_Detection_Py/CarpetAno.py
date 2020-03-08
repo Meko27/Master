@@ -10,12 +10,13 @@ import matplotlib.pyplot as plt
 from AnoDetector import AnoDetector
 from HOG_ground_dist import HOG_ground_dist
 import time
+import pandas as pd
 
 
 # Set path
 ###MacOS###
-path_normal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/train/good'
-path_anomal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/test/hole_cropped'
+#path_normal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/train/good'
+#path_anomal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/test/hole_cropped'
 #path_normal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/metal_nut/train/good'
 #path_anomal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/metal_nut/test/scratch'
 ###Windows###
@@ -27,6 +28,9 @@ path_anomal = '/Users/meko/Documents/MATLAB/Anomaly_Detection/data/carpet/test/h
 ###VM###
 #path_normal = '/home/mk/Master/Anomaly_Detection_Py/data/carpet/train/good'
 #path_anomal = '/home/mk/Master/Anomaly_Detection_Py/data/carpet/test/hole'
+###24core###
+path_normal = '/home/Meko/Repos/Master/Anomaly_Detection_Py/data/carpet/train/good'
+path_anomal = '/home/Meko/Repos/Master/Anomaly_Detection_Py/data/carpet/test/hole'
 valid_img_type = '.png' # Set type
 img_addrs_list_normal = glob.glob(path_normal + '/*' + valid_img_type) #Windows: '\\*' , Mac, WSL: '/*
 img_addrs_list_anomal = glob.glob(path_anomal + '/*' + valid_img_type) #Windows: '\\* , Mac, WSL: '/*
@@ -39,15 +43,15 @@ hog_list = []
 
 # Params
 # Image scale
-img_scale = 0.2
+img_scale = 0.5
 # HOG:
 orientations = 9
-pixels_per_cell = (64, 64)
+pixels_per_cell = (128, 128)
 cells_per_block = (2, 2)
 block_stride = tuple(int(cell_size -1) for cell_size in cells_per_block)
 # Ano detector:
-iter = 10
-n_outliers = 17
+iter = 7
+n_outliers = 20
 k = 7
 
 # Load images
@@ -57,9 +61,9 @@ for i,addr in enumerate(img_addrs_list):
     img_id_list.append(img_id) # list of img names
     img = cv2.imread(addr)
     #img = cv2.resize(img,tuple(int(img_scale * size) for size in img_size))
-    if i<len(img_addrs_list_normal):
-        img = img[400:656,400:656]
-    img = cv2.resize(img,(220,220))
+    #if i<len(img_addrs_list_normal):
+    #    img = img[400:656,400:656]
+    img = cv2.resize(img,(512,512))
     img_size = img.shape[:2]
     img_list.append(img)
     print('load img {} of {}'.format(i+1,len(img_addrs_list)))
@@ -96,12 +100,21 @@ print('dist: \n', dist_vect_ano)
 print('idx_outl: \n', idx_outliers)
 print('time elapsed: ', end-start)
 
-for i in range(n_outliers):
-    fig,ax = plt.subplot(4,5,i+1)
-    idx = idx_outliers[i]
-    plt.imshow(img_list[idx])
-    plt.title('img: {}'.format(img_id_list[idx]))
-    ax.set_xticklabels = []
-    ax.set_ytocklabels = []
 
-plt.show()
+ids_outliers = []
+for idx in idx_outliers:
+    ids_outliers.append(img_id_list[idx])
+
+Profil1_evaluation = {'Id': ids_outliers, 'Distance': dist_vect_ano}
+Profil1_evaluation = pd.DataFrame(data=Profil1_evaluation)
+print('Eval ', Profil1_evaluation)
+
+#for i in range(n_outliers):
+#    fig,ax = plt.subplot(4,5,i+1)
+#    idx = idx_outliers[i]
+#    plt.imshow(img_list[idx])
+#    plt.title('img: {}'.format(img_id_list[idx]))
+#    ax.set_xticklabels = []
+#    ax.set_ytocklabels = []
+
+#plt.show()
