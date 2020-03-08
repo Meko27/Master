@@ -62,7 +62,7 @@ def detect_object(img , FILTER_LEN=800 , FILTER_WID=5):
 RESIZE_FACTOR = 0.5
 # HOG
 orientations = 9
-pixels_per_cell = (64,64)
+pixels_per_cell = (128,128)
 cells_per_block = (2, 2)
 block_stride = tuple(int(cell_size -1) for cell_size in cells_per_block)
 # Ano detector:
