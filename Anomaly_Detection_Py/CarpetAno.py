@@ -7,10 +7,13 @@ import ntpath
 from skimage.feature import hog
 import skimage
 import matplotlib.pyplot as plt
-from AnoDetector import AnoDetector
-from HOG_ground_dist import HOG_ground_dist
 import time
 import pandas as pd
+import sys
+sys.path.append(pwd + '/Source') # add source path to pythonpath
+from AnoDetector import AnoDetector
+from HOG_ground_dist import HOG_ground_dist
+
 
 
 # Set path
@@ -72,7 +75,7 @@ for i,addr in enumerate(img_addrs_list):
 # Calculate ground distance
 print('img loaded')
 print('calculate ground distance')
-ground_dist,d_hog = HOG_ground_dist(img_list[0],cell_size=pixels_per_cell, block_size=cells_per_block,block_stride=block_stride,move_cost=1,rotation_cost=2,threshold=10)
+ground_dist,d_hog = HOG_ground_dist(img_list[0],cell_size=pixels_per_cell, block_size=cells_per_block,block_stride=block_stride,move_cost=1,rotation_cost=4,threshold=5)
 print('ground_dist calculated, size:', ground_dist.shape)
 
 # Extract Features

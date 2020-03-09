@@ -8,10 +8,13 @@ import ntpath
 from skimage.feature import hog
 from skimage import exposure, img_as_float, img_as_ubyte
 import matplotlib.pyplot as plt
-from AnoDetector import AnoDetector
-from HOG_ground_dist import HOG_ground_dist
 import time
 import pandas as pd
+import sys
+sys.path.append(pwd + '/Source') # add source path to pythonpath
+from AnoDetector import AnoDetector
+from HOG_ground_dist import HOG_ground_dist
+
 
 
 def strech_contrast(img,A=0.15,B=0.65,SA=0.3,SB=0.9):
