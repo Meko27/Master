@@ -63,7 +63,7 @@ for i,addr in enumerate(img_addrs_list):
     #img = cv2.resize(img,tuple(int(img_scale * size) for size in img_size))
     #if i<len(img_addrs_list_normal):
     #    img = img[400:656,400:656]
-    img = cv2.resize(img,(512,512))
+    #img = cv2.resize(img,(512,512))
     img_size = img.shape[:2]
     img_list.append(img)
     print('load img {} of {}'.format(i+1,len(img_addrs_list)))
@@ -72,7 +72,7 @@ for i,addr in enumerate(img_addrs_list):
 # Calculate ground distance
 print('img loaded')
 print('calculate ground distance')
-ground_dist,d_hog = HOG_ground_dist(img_list[0],cell_size=pixels_per_cell, block_size=cells_per_block,block_stride=block_stride)
+ground_dist,d_hog = HOG_ground_dist(img_list[0],cell_size=pixels_per_cell, block_size=cells_per_block,block_stride=block_stride,move_cost=1,rotation_cost=2,threshold=10)
 print('ground_dist calculated, size:', ground_dist.shape)
 
 # Extract Features
