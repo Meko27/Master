@@ -55,7 +55,7 @@ block_stride = tuple(int(cell_size -1) for cell_size in cells_per_block)
 # Ano detector:
 iter = 3
 n_outliers = 20
-k = 15
+k = 3
 
 # Load images
 for i,addr in enumerate(img_addrs_list):
