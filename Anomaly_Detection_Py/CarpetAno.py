@@ -49,13 +49,13 @@ hog_list = []
 img_scale = 0.5
 # HOG:
 orientations = 9
-pixels_per_cell = (128, 128)
+pixels_per_cell = (64, 64)
 cells_per_block = (2, 2)
 block_stride = tuple(int(cell_size -1) for cell_size in cells_per_block)
 # Ano detector:
 iter = 3
 n_outliers = 20
-k = 3
+k = 7
 
 # Load images
 for i,addr in enumerate(img_addrs_list):
@@ -75,7 +75,7 @@ for i,addr in enumerate(img_addrs_list):
 # Calculate ground distance
 print('img loaded')
 print('calculate ground distance')
-ground_dist,d_hog = HOG_ground_dist(img_list[0],cell_size=pixels_per_cell, block_size=cells_per_block,block_stride=block_stride,move_cost=10,rotation_cost=1,threshold=100)
+ground_dist,d_hog = HOG_ground_dist(img_list[0],cell_size=pixels_per_cell, block_size=cells_per_block,block_stride=block_stride,move_cost=1,rotation_cost=5,threshold=20)
 print('ground_dist calculated, size:', ground_dist.shape)
 
 # Extract Features
