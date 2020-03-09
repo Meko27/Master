@@ -63,7 +63,7 @@ for i,addr in enumerate(img_addrs_list):
     #img = cv2.resize(img,tuple(int(img_scale * size) for size in img_size))
     #if i<len(img_addrs_list_normal):
     #    img = img[400:656,400:656]
-    #img = cv2.resize(img,(512,512))
+    img = cv2.resize(img,(512,512))
     img_size = img.shape[:2]
     img_list.append(img)
     print('load img {} of {}'.format(i+1,len(img_addrs_list)))
