@@ -75,7 +75,7 @@ for i,addr in enumerate(img_addrs_list):
 # Calculate ground distance
 print('img loaded')
 print('calculate ground distance')
-ground_dist,d_hog = HOG_ground_dist(img_list[0],cell_size=pixels_per_cell, block_size=cells_per_block,block_stride=block_stride,move_cost=5,rotation_cost=1,threshold=5)
+ground_dist,d_hog = HOG_ground_dist(img_list[0],cell_size=pixels_per_cell, block_size=cells_per_block,block_stride=block_stride,move_cost=10,rotation_cost=1,threshold=100)
 print('ground_dist calculated, size:', ground_dist.shape)
 
 # Extract Features

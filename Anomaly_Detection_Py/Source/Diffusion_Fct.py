@@ -104,15 +104,11 @@ def weighted_graph_laplacian(dist_mat):
     D = np.diag(1/d) # Degree Matrix
     A_t1 = np.matmul(D,dist_mat)
     A_t2 = np.matmul(A_t1,D)
-    print('A_t1: {}, A_t2: {}'.format(np.max(A_t1),np.max(A_t2)))
     A = 1.0/n * np.matmul(np.matmul(D,dist_mat),D) # weighted Adjacency matrix
-    print('max_A: ', np.max(A))
     d = np.sum(A,axis=1) # sum up rows (-->)
-    print('max_d', np.max(d))
     if len(d[d==0]) > 0:
         i_zeros = np.where(d==0)
         d[i_zeros] = 1/n
-    print('D: {}, d: {}'.format(np.max(D),np.max(d)))    
     D = np.diag(d) # Degree Matrix of weighted A
     
     L = D-A # Graph Laplacian
