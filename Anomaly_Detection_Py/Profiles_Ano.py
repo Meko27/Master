@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import time
 import pandas as pd
 import sys
-sys.path.append(pwd + '/Source') # add source path to pythonpath
+sys.path.append(os.getcwd() + '/Source') # add source path to pythonpath
 from AnoDetector import AnoDetector
 from HOG_ground_dist import HOG_ground_dist
 
