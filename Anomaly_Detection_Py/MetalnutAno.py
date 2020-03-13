@@ -79,7 +79,7 @@ width_sum = 0
 CLIP_LIMIT = 0.015 # between (0,1) higher value -> higher contrast
 
 # Load images and detect edges
-for img_count,addr in enumerate(img_addrs_list):
+for i,addr in enumerate(img_addrs_list):
     
     # Load image
     img_id = ntpath.basename(addr)
