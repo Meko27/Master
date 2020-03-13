@@ -55,8 +55,8 @@ pixels_per_cell = (128,128)
 cells_per_block = (2, 2)
 block_stride = tuple(int(cell_size -1) for cell_size in cells_per_block)
 # Ano detector:
-iter = 10
-n_outliers = 10
+iter = 5
+n_outliers = 20
 k = 7
 ###########################################################
 
