@@ -91,7 +91,7 @@ for img_count,addr in enumerate(img_addrs_list):
     #img_g_cont = strech_contrast(img_g) # contrast streching
 
     # Contrast Limited Adaptive Histogram Equalizaton 
-    img_out = exposure.equalize_adapthist(img_out,clip_limit = CLIP_LIMIT) 
+    img_out = exposure.equalize_adapthist(img,clip_limit = CLIP_LIMIT) 
     img_out = img_as_ubyte(img_out) # equalize_adapthist converst image to float64
 
     # Resize
