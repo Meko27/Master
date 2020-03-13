@@ -67,8 +67,8 @@ path_data = '/home/Meko/Repos/data/bottle/bottle'
 
 # Load images
 valid_img_type = 'png'
-img_addrs_list = glob.glob(path_data + '/train/good/' + valid_img_type)
-img_addrs_list = img_addrs_list + glob.glob(path_data + '/test/broken_large/' + valid_img_type)
+img_addrs_list = glob.glob(path_data + '/train/good/' + '*' + valid_img_type)
+img_addrs_list = img_addrs_list + glob.glob(path_data + '/test/broken_large/' + '*' + valid_img_type)
 
 #img_addrs_list = img_addrs_list[:20] # TODO only for testing
 img_ids = []
