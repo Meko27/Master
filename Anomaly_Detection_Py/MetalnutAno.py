@@ -91,7 +91,7 @@ print('Calculate Ground Distane Matrix')
 ground_dist,d_hog = HOG_ground_dist(img_list[0],cell_size=pixels_per_cell,
                                     block_size=cells_per_block,
                                     block_stride=block_stride,
-                                    move_cost=1,rotation_cost=10,threshold=4)
+                                    move_cost=1,rotation_cost=5,threshold=4)
 print('Ground Distance Matrix calculated, size:', ground_dist.shape)
 
 # Extraxt Features
