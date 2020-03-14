@@ -77,11 +77,11 @@ for i,addr in enumerate(img_addrs_list):
     img = cv2.imread(addr)
 
     # Contrast Limited Adaptive Histogram Equalizaton 
-    #img_out = exposure.equalize_adapthist(img,clip_limit = CLIP_LIMIT) 
-    #img_out = img_as_ubyte(img_out) # equalize_adapthist converst image to float64
+    #img = exposure.equalize_adapthist(img,clip_limit = CLIP_LIMIT) 
+    #img = img_as_ubyte(img) # equalize_adapthist converst image to float64
 
     # Resize
-    img_re = cv2.resize(img_out,(int(img.shape[1]*RESIZE_FACTOR) , int(img.shape[0]*RESIZE_FACTOR))) 
+    img_re = cv2.resize(img,(int(img.shape[1]*RESIZE_FACTOR) , int(img.shape[0]*RESIZE_FACTOR))) 
     img_list.append(img_re)
     print('load img {} of {}'.format(i+1,len(img_addrs_list)))
     
