@@ -34,18 +34,6 @@ def strech_contrast(img,A=0.15,B=0.65,SA=0.3,SB=0.9):
     
     return img_cont
 
-def contrast_bright_correction(img,ALPHA=2,BETA=20):
-    # Contrast and Brightness corrections  
-    
-    img_cont = np.zeros((img.shape[0],img.shape[1]),dtype = 'uint8'   
-       
-        
-    for i in range(img.shape[0]):
-        for j in range(img.shape[1]):
-            img_cont[i,j] = np.clip(ALPHA*img[i,j]+BETA,0,255)  
-
-    return img_cont
-
 
 ###########################################################
 ### Set Parameters
