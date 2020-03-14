@@ -38,7 +38,7 @@ def strech_contrast(img,A=0.15,B=0.65,SA=0.3,SB=0.9):
 ###########################################################
 ### Set Parameters
 # Preprocessing
-RESIZE_FACTOR = 0.7
+RESIZE_FACTOR = 0.8
 # HOG
 orientations = 9
 pixels_per_cell = (128,128)
