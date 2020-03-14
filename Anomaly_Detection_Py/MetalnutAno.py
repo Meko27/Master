@@ -37,7 +37,9 @@ def strech_contrast(img,A=0.15,B=0.65,SA=0.3,SB=0.9):
 def contrast_bright_correction(img,ALPHA=2,BETA=20):
     # Contrast and Brightness corrections  
     
-    img_cont = np.zeros((img.shape[0],img.shape[1]),dtype = 'uint8')
+    img_cont = np.zeros((img.shape[0],img.shape[1]),dtype = 'uint8'   
+       
+        
     for i in range(img.shape[0]):
         for j in range(img.shape[1]):
             img_cont[i,j] = np.clip(ALPHA*img[i,j]+BETA,0,255)  
@@ -86,13 +88,9 @@ for i,addr in enumerate(img_addrs_list):
     img_ids.append(img_id[:-len(valid_img_type)])
     img = cv2.imread(addr)
 
-    # Preprocessing 
-    #img_g = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY) # to gray
-    #img_g_cont = strech_contrast(img_g) # contrast streching
-
     # Contrast Limited Adaptive Histogram Equalizaton 
-    img_out = exposure.equalize_adapthist(img,clip_limit = CLIP_LIMIT) 
-    img_out = img_as_ubyte(img_out) # equalize_adapthist converst image to float64
+    #img_out = exposure.equalize_adapthist(img,clip_limit = CLIP_LIMIT) 
+    #img_out = img_as_ubyte(img_out) # equalize_adapthist converst image to float64
 
     # Resize
     img_re = cv2.resize(img_out,(int(img.shape[1]*RESIZE_FACTOR) , int(img.shape[0]*RESIZE_FACTOR))) 
